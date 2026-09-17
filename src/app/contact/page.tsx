@@ -20,7 +20,7 @@ export default function Page() {
       <form className="space-y-4">
         <input type="text" placeholder="Full Name" className="w-full bg-transparent border border-white/20 p-4 text-white focus:outline-none focus:border-gold" />
         <input type="email" placeholder="Email Address" className="w-full bg-transparent border border-white/20 p-4 text-white focus:outline-none focus:border-gold" />
-        <textarea placeholder="Your Message" rows="5" className="w-full bg-transparent border border-white/20 p-4 text-white focus:outline-none focus:border-gold"></textarea>
+        <textarea placeholder="Your Message" rows={5} className="w-full bg-transparent border border-white/20 p-4 text-white focus:outline-none focus:border-gold"></textarea>
         <button type="button" className="w-full bg-gold hover:bg-white text-charcoal font-bold px-8 py-4 uppercase tracking-widest transition-colors">Send Message</button>
       </form>
     </div>

@@ -26,7 +26,7 @@ export default function Page() {
             <option className="bg-charcoal">5+ Guests</option>
           </select>
         </div>
-        <textarea placeholder="Special Requests (Allergies, Occasion, etc.)" rows="3" className="w-full bg-transparent border border-white/20 p-4 text-white focus:outline-none focus:border-gold"></textarea>
+        <textarea placeholder="Special Requests (Allergies, Occasion, etc.)" rows={3} className="w-full bg-transparent border border-white/20 p-4 text-white focus:outline-none focus:border-gold"></textarea>
         <button type="button" className="w-full bg-crimson hover:bg-red-800 text-white font-bold px-8 py-4 uppercase tracking-widest transition-colors">Submit Request</button>
       </form>
     </div>
