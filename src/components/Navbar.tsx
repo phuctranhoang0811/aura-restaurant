@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Home, Utensils, CalendarCheck, Grip } from "lucide-react"; // Mobile App Icons
 
 const LEFT_LINKS = [
   { name: "About Us", href: "/about" },
@@ -38,34 +39,28 @@ export default function Navbar() {
       pathname === href ? "text-gold" : "text-white/80 hover:text-gold"
     }`;
 
+  const mobileTabClass = (href: string) =>
+    `flex flex-col items-center justify-center w-1/4 space-y-1 transition-colors ${
+      pathname === href ? "text-gold" : "text-white/50"
+    }`;
+
   return (
     <>
+      {/* 
+        ========================================
+        DESKTOP NAVBAR (Hidden on Mobile)
+        ========================================
+      */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
+        className={`hidden xl:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
           isScrolled
             ? "bg-charcoal/95 backdrop-blur-md py-3 shadow-lg"
             : "bg-transparent py-5"
         }`}
       >
-        <div className="max-w-screen-2xl mx-auto px-6 flex items-center justify-between xl:justify-center relative">
-
-          {/* Mobile / Tablet Menu Button (shown below xl) */}
-          <button
-            className="xl:hidden text-gold focus:outline-none"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle Menu"
-          >
-            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {mobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
-
+        <div className="max-w-screen-2xl mx-auto px-6 flex items-center justify-center relative">
           {/* Left Navigation */}
-          <div className="hidden xl:flex flex-1 justify-end items-center gap-6 pr-10">
+          <div className="flex flex-1 justify-end items-center gap-6 pr-10">
             {LEFT_LINKS.map((link) => (
               <Link key={link.name} href={link.href} className={linkClass(link.href)}>
                 {link.name}
@@ -76,12 +71,12 @@ export default function Navbar() {
 
           {/* Center Logo */}
           <Link href="/" className="flex-shrink-0 text-center">
-            <h1 className="font-serif text-3xl xl:text-4xl text-gold tracking-widest font-bold leading-none">AURA</h1>
+            <h1 className="font-serif text-4xl text-gold tracking-widest font-bold leading-none">AURA</h1>
             <p className="text-[0.6rem] tracking-[0.3em] uppercase text-white/60 mt-1">Modern Asian</p>
           </Link>
 
           {/* Right Navigation */}
-          <div className="hidden xl:flex flex-1 justify-start items-center gap-6 pl-10">
+          <div className="flex flex-1 justify-start items-center gap-6 pl-10">
             {RIGHT_LINKS.map((link) => (
               <Link key={link.name} href={link.href} className={linkClass(link.href)}>
                 {link.name}
@@ -89,26 +84,82 @@ export default function Navbar() {
               </Link>
             ))}
           </div>
-
-          <div className="xl:hidden w-7" />
         </div>
       </nav>
 
-      {/* Mobile / Tablet Fullscreen Menu */}
+      {/* 
+        ========================================
+        MOBILE APP SHELL (Hidden on Desktop)
+        ========================================
+      */}
+
+      {/* 1. Mobile Top Bar (Just Logo) */}
+      <nav
+        className={`xl:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-center transition-all duration-300 ${
+          isScrolled ? "bg-charcoal/95 backdrop-blur-md py-3 shadow-lg" : "bg-gradient-to-b from-charcoal/80 to-transparent py-4"
+        }`}
+      >
+        <Link href="/" className="text-center">
+          <h1 className="font-serif text-3xl text-gold tracking-widest font-bold leading-none">AURA</h1>
+        </Link>
+      </nav>
+
+      {/* 2. Mobile Bottom Tab Bar (App-like Navigation) */}
+      <div className="xl:hidden fixed bottom-0 left-0 right-0 z-50 bg-charcoal/98 backdrop-blur-lg border-t border-white/10 h-20 flex flex-row items-center justify-around pb-4 pt-2 px-2 shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
+        
+        {/* Tab 1: Home */}
+        <Link href="/" className={mobileTabClass("/")} onClick={() => setMobileMenuOpen(false)}>
+          <Home size={22} strokeWidth={pathname === "/" ? 2.5 : 1.5} />
+          <span className="text-[10px] tracking-wider uppercase mt-1">Home</span>
+        </Link>
+
+        {/* Tab 2: Menu */}
+        <Link href="/menu" className={mobileTabClass("/menu")} onClick={() => setMobileMenuOpen(false)}>
+          <Utensils size={22} strokeWidth={pathname === "/menu" ? 2.5 : 1.5} />
+          <span className="text-[10px] tracking-wider uppercase mt-1">Menu</span>
+        </Link>
+
+        {/* Tab 3: Reservations */}
+        <Link href="/reservations" className={mobileTabClass("/reservations")} onClick={() => setMobileMenuOpen(false)}>
+          <CalendarCheck size={22} strokeWidth={pathname === "/reservations" ? 2.5 : 1.5} />
+          <span className="text-[10px] tracking-wider uppercase mt-1">Reserve</span>
+        </Link>
+
+        {/* Tab 4: More / Explore */}
+        <button 
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className={`flex flex-col items-center justify-center w-1/4 space-y-1 transition-colors ${mobileMenuOpen ? "text-gold" : "text-white/50"}`}
+        >
+          <Grip size={22} strokeWidth={mobileMenuOpen ? 2.5 : 1.5} />
+          <span className="text-[10px] tracking-wider uppercase mt-1">Explore</span>
+        </button>
+
+      </div>
+
+      {/* 3. Mobile "Explore" Drawer (Slides up when clicking "Explore" tab) */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-charcoal/97 backdrop-blur-sm pt-24 px-8 flex flex-col xl:hidden overflow-y-auto">
-          {ALL_LINKS.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className={`text-base tracking-widest uppercase text-center py-4 border-b border-white/10 transition-colors ${
-                pathname === link.href ? "text-gold" : "text-white hover:text-gold"
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
+        <div className="xl:hidden fixed inset-0 z-40 bg-charcoal/98 backdrop-blur-xl pt-24 pb-24 px-8 flex flex-col overflow-y-auto animate-fade-in-up">
+          <h3 className="text-gold text-xs tracking-[0.3em] uppercase text-center mb-8">Explore Aura</h3>
+          
+          <div className="grid grid-cols-2 gap-y-6 gap-x-4">
+            {ALL_LINKS.filter(l => !['/', '/menu', '/reservations'].includes(l.href)).map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`text-sm tracking-widest uppercase text-center py-4 border border-white/5 bg-white/5 rounded-lg transition-colors ${
+                  pathname === link.href ? "text-gold border-gold/30" : "text-white/80 active:bg-white/10"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-auto pt-8 flex flex-col items-center">
+            <p className="text-xs text-white/40 font-sans tracking-widest">123 Culinary Ave, Metro City</p>
+            <p className="text-xs text-white/40 font-sans tracking-widest mt-2">+1 (555) 123-4567</p>
+          </div>
         </div>
       )}
     </>
