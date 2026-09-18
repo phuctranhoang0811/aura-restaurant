@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import OurStory from "@/components/OurStory";
 import MenuHighlights from "@/components/MenuHighlights";
+import Testimonials from "@/components/Testimonials";
 import ReservationBanner from "@/components/ReservationBanner";
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
       <Hero />
       <OurStory />
       <MenuHighlights />
+      <Testimonials />
       <ReservationBanner />
     </div>
   );

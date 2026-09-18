@@ -1,21 +1,28 @@
-
 import Link from "next/link";
+import Image from "next/image";
 
 export default function OurStory() {
   return (
-    <section className="py-24 px-6 bg-charcoal relative">
+    <section className="py-24 px-6 bg-charcoal relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           {/* Image Side */}
           <div className="w-full lg:w-1/2 relative">
             <div className="aspect-[4/5] relative w-full overflow-hidden">
-              <div 
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2000&auto=format&fit=crop')" }}
+              <Image
+                src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2000&auto=format&fit=crop"
+                alt="Aura restaurant interior with elegant Asian decor"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
-            {/* Overlapping gold accent box */}
-            <div className="hidden md:block absolute -bottom-8 -right-8 w-48 h-48 border-r-2 border-b-2 border-gold z-0"></div>
+            {/* Gold accent decoration — desktop */}
+            <div className="hidden md:block absolute -bottom-8 -right-8 w-48 h-48 border-r-2 border-b-2 border-gold z-0" />
+            {/* Gold accent decoration — mobile replacement */}
+            <div className="md:hidden mt-6 flex justify-center">
+              <div className="w-16 h-px bg-gold" />
+            </div>
           </div>
 
           {/* Text Side */}
@@ -33,7 +40,7 @@ export default function OurStory() {
             <p className="text-white/70 font-sans leading-relaxed mb-10">
               We source the finest seasonal ingredients, ensuring that our Modern Asian Fusion concept remains deeply rooted in respect for nature and craftsmanship.
             </p>
-            <Link 
+            <Link
               href="/about"
               className="uppercase tracking-[0.2em] text-sm text-gold border-b border-gold pb-1 hover:text-white hover:border-white transition-colors"
             >
