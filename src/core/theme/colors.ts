@@ -1,0 +1,16 @@
+export const colors = {
+  background: '#121212',
+  surface: '#1c1c1c',
+  gold: '#d4af37',
+  goldLight: '#f3d87a',
+  crimson: '#990000',
+  crimsonDark: '#7a0000',
+  white: '#ffffff',
+  textPrimary: '#ffffff',
+  textMuted: 'rgba(255, 255, 255, 0.65)',
+  textSubtle: 'rgba(255, 255, 255, 0.35)',
+  border: 'rgba(255, 255, 255, 0.08)',
+  borderGold: 'rgba(212, 175, 55, 0.3)',
+  overlay: 'rgba(18, 18, 18, 0.70)',
+  overlayStrong: 'rgba(18, 18, 18, 0.90)',
+};
